@@ -89,4 +89,25 @@ public class AuthenticationTest {
         Assertions.assertEquals(1, actualUsersInGroupSingle.size());
         Assertions.assertTrue(actualUsersInGroup.contains("Lena"));
     }
+
+    @Test
+    public void getWorkingGroups() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> UserService.getWorkingGroups("non-existent-user"),
+                "Expected illegal argument exception but it was not thrown");
+
+        UserService.register("Zhenya", "qwerty");
+        List<String> workingGroups = UserService.getWorkingGroups("Zhenya");
+        Assertions.assertEquals(0, workingGroups.size());
+
+        UserService.addWorkingGroup("Zhenya", "working_group1");
+        UserService.addWorkingGroup("Zhenya", "working_group2");
+        UserService.addWorkingGroup("Zhenya", "working_group3");
+
+        workingGroups = UserService.getWorkingGroups("Zhenya");
+        Assertions.assertEquals(3, workingGroups.size());
+        Assertions.assertTrue(workingGroups.contains("working_group1"));
+        Assertions.assertTrue(workingGroups.contains("working_group2"));
+        Assertions.assertTrue(workingGroups.contains("working_group3"));
+    }
 }
