@@ -17,4 +17,5 @@ public class UserService {
     static public boolean authenticate(@NotNull String login, @NotNull String password) {
         return Objects.equals(users.get(login), password);
     }
+
 }
