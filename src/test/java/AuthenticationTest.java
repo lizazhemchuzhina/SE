@@ -42,4 +42,19 @@ public class AuthenticationTest {
         Assertions.assertTrue(UserService.userInWorkingGroup("authorized_user", "working_group2"));
         Assertions.assertFalse(UserService.userInWorkingGroup("authorized_user", "working_group3"));
     }
+
+    @Test
+    public void userRemoveFromWorkingGroup() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> UserService.removeFromWorkingGroup("user", "some_group"),
+                "Expected illegal argument exception but it was not thrown");
+        UserService.register("user", "password");
+        UserService.addWorkingGroup("user", "working_group1");
+        UserService.addWorkingGroup("user", "working_group2");
+        Assertions.assertFalse(UserService.removeFromWorkingGroup("user", "working_group3"));
+        Assertions.assertTrue(UserService.removeFromWorkingGroup("user", "working_group1"));
+        Assertions.assertFalse(UserService.userInWorkingGroup("user", "working_group1"));
+        Assertions.assertTrue(UserService.userInWorkingGroup("user", "working_group2"));
+
+    }
 }
