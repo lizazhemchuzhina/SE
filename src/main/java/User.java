@@ -50,4 +50,8 @@ public class User {
     public void setGroup(Group group) {
         this.group = group;
     }
+
+    public boolean removeWorkingGroup(String workingGroup) {
+        return workingGroups.remove(workingGroup);
+    }
 }

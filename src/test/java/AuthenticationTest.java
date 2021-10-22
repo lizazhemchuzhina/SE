@@ -55,6 +55,5 @@ public class AuthenticationTest {
         Assertions.assertTrue(UserService.removeFromWorkingGroup("user", "working_group1"));
         Assertions.assertFalse(UserService.userInWorkingGroup("user", "working_group1"));
         Assertions.assertTrue(UserService.userInWorkingGroup("user", "working_group2"));
-
     }
 }

@@ -9,6 +9,14 @@ public class UserService {
     static private final HashMap<Integer, User> users = new HashMap<>();
     static private int currentId = 0;
 
+    static private User getUserByLoginThrowException(String login) {
+        Optional<User> userOpt = getUserByLogin(login);
+        if (userOpt.isEmpty()) {
+            throw new IllegalArgumentException("User not found");
+        }
+        return userOpt.get();
+    }
+
     static private Optional<User> getUserByLogin(String login) {
         for (Map.Entry<Integer, User> entry : users.entrySet()) {
             if (entry.getValue().getLogin().equals(login)) {
@@ -33,34 +41,27 @@ public class UserService {
     }
 
     static public Group authorize(@NotNull String login) {
-        Optional<User> user = getUserByLogin(login);
-        if (user.isEmpty()) {
-            throw new IllegalArgumentException("User not found");
-        }
-        return user.get().getGroup();
+        User user = getUserByLoginThrowException(login);
+        return user.getGroup();
     }
 
     static public void changeGroup(@NotNull String login, Group group) {
-        Optional<User> user = getUserByLogin(login);
-        if (user.isEmpty()) {
-            throw new IllegalArgumentException("User not found");
-        }
-        user.get().setGroup(group);
+        User user = getUserByLoginThrowException(login);
+        user.setGroup(group);
     }
 
     static public void addWorkingGroup(@NotNull String login, @NotNull String workingGroup) {
-        Optional<User> user = getUserByLogin(login);
-        if (user.isEmpty()) {
-            throw new IllegalArgumentException("User not found");
-        }
-        user.get().addWorkingGroup(workingGroup);
+        User user = getUserByLoginThrowException(login);
+        user.addWorkingGroup(workingGroup);
     }
 
     static public boolean userInWorkingGroup(@NotNull String login, @NotNull String workingGroup) {
-        Optional<User> user = getUserByLogin(login);
-        if (user.isEmpty()) {
-            throw new IllegalArgumentException("User not found");
-        }
-        return user.get().isInWorkingGroup(workingGroup);
+        User user = getUserByLoginThrowException(login);
+        return user.isInWorkingGroup(workingGroup);
+    }
+
+    static public boolean removeFromWorkingGroup(@NotNull String login, @NotNull String workingGroup) {
+        User user = getUserByLoginThrowException(login);
+        return user.removeWorkingGroup(workingGroup);
     }
 }
