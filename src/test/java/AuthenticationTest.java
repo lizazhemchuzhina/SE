@@ -6,7 +6,7 @@ public class AuthenticationTest {
     @Test
     public void userAuthentication() {
         UserService.register("user1", "password");
-        Assertions.assertTrue(AuthenticationService.authenticate("user1", "password"));
-        Assertions.assertFalse(AuthenticationService.authenticate("user2", "password"));
+        Assertions.assertTrue(UserService.authenticate("user1", "password"));
+        Assertions.assertFalse(UserService.authenticate("user2", "password"));
     }
 }
