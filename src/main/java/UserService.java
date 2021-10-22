@@ -47,4 +47,20 @@ public class UserService {
         }
         user.get().setGroup(group);
     }
+
+    static public void addWorkingGroup(@NotNull String login, @NotNull String workingGroup) {
+        Optional<User> user = getUserByLogin(login);
+        if (user.isEmpty()) {
+            throw new IllegalArgumentException("User not found");
+        }
+        user.get().addWorkingGroup(workingGroup);
+    }
+
+    static public boolean userInWorkingGroup(@NotNull String login, @NotNull String workingGroup) {
+        Optional<User> user = getUserByLogin(login);
+        if (user.isEmpty()) {
+            throw new IllegalArgumentException("User not found");
+        }
+        return user.get().isInWorkingGroup(workingGroup);
+    }
 }
