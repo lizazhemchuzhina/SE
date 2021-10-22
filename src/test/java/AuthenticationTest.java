@@ -79,8 +79,8 @@ public class AuthenticationTest {
         List<String> expectedUsersInGroup = new ArrayList<>(Arrays.asList("Lena", "Liza", "Vlad", "Tankov"));
         List<String> actualUsersInGroup = UserService.getUsersFromWorkingGroup("working_group1");
         Assertions.assertEquals(expectedUsersInGroup.size(), actualUsersInGroup.size());
-        Assertions.assertTrue(expectedUsersInGroup.contains(actualUsersInGroup));
-        Assertions.assertTrue(actualUsersInGroup.contains(expectedUsersInGroup));
+        Assertions.assertTrue(expectedUsersInGroup.containsAll(actualUsersInGroup));
+        Assertions.assertTrue(actualUsersInGroup.containsAll(expectedUsersInGroup));
 
         List<String> actualUsersInGroupEmpty = UserService.getUsersFromWorkingGroup("working_group2");
         Assertions.assertEquals(0, actualUsersInGroupEmpty.size());
@@ -89,5 +89,4 @@ public class AuthenticationTest {
         Assertions.assertEquals(1, actualUsersInGroupSingle.size());
         Assertions.assertTrue(actualUsersInGroup.contains("Lena"));
     }
-
 }

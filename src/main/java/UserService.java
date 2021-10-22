@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -63,5 +60,16 @@ public class UserService {
     static public boolean removeFromWorkingGroup(@NotNull String login, @NotNull String workingGroup) {
         User user = getUserByLoginThrowException(login);
         return user.removeWorkingGroup(workingGroup);
+    }
+
+    static public List<String> getUsersFromWorkingGroup(@NotNull String workingGroup) {
+        List<String> usersInWorkingGroup = new ArrayList<>();
+        for (Map.Entry<Integer, User> entry : users.entrySet()) {
+            User user = entry.getValue();
+            if (user.getWorkingGroups().contains(workingGroup)) {
+                usersInWorkingGroup.add(user.getLogin());
+            }
+        }
+        return usersInWorkingGroup;
     }
 }
