@@ -13,6 +13,9 @@ public class AuthenticationTest {
 
     @Test
     public void userAuthorization() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> UserService.authorize("NonAuthorized_user"),
+                "Expected illegal argument exception but it was not thrown");
+        UserService.register("NonAuthorized_user", "120912192109");
         Assertions.assertEquals(Group.NONAUTHORIZED,UserService.authorize("NonAuthorized_user"));
         UserService.register("authorized_user", "qwerty");
         UserService.changeGroup("authorized_user", Group.USER);
