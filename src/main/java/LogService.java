@@ -1,8 +1,11 @@
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class LogService {
     private final HashMap<Integer, Log> logs = new HashMap<>();
     private int currentId = 0;
+    private int logLevelsUpperBound = 10;
 
     public int size() {
         return logs.size();
@@ -17,4 +20,35 @@ public class LogService {
         currentId++;
         return currentId - 1;
     }
+
+    public int getLogLevel(int logId) {
+        return logs.get(logId).getLevel();
+    }
+
+    public List<Integer> getLogLevel(List<Integer> logsId) {
+        List<Integer> levelsList = new ArrayList<>();
+        for (int id: logsId) {
+            levelsList.add(getLogLevel(id));
+        }
+        return levelsList;
+    }
+
+    public boolean changeLogLevel(int logId, int level) {
+        if (level < 0 || level > logLevelsUpperBound) {
+            return false;
+        }
+        logs.get(logId).setLevel(level);
+        return true;
+    }
+
+    public boolean changeLogLevel(List<Integer> logsId, int level) {
+        for (Integer id: logsId) {
+            if (!changeLogLevel(id, level)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }
