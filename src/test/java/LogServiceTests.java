@@ -40,4 +40,27 @@ public class LogServiceTests {
         List<Integer> expectedLogsId = new ArrayList<>(Arrays.asList(4, 4, 4));
         Assertions.assertEquals(expectedLogsId, logService.getLogLevel(logsId));
     }
+
+    @Test
+    public void getLogsByLevel() {
+        Log log = new Log("ERROR: all fell");
+        int logId = logService.add(log);
+
+        Log log1 = new Log("ERROR: all fell and Liza is a cow bigger then Zhenya");
+        Log log2 = new Log("ERROR: all fell and Zhenya is a cow");
+        Log log3 = new Log("ERROR: all fell and we are not happy");
+        List<Integer> logsId = new ArrayList<>(Arrays.asList(logService.add(log1), logService.add(log2), logService.add(log3)));
+        logService.changeLogLevel(logsId, 2);
+
+        List<Integer> logsLevel0 = logService.getLogsByLevel(0);
+        Assertions.assertEquals(1, logsLevel0.size());
+        Assertions.assertEquals(logId, logsLevel0.get(0));
+
+        List<Integer> logsLevel2 = logService.getLogsByLevel(2);
+        Assertions.assertEquals(logsId.size(), logsLevel2.size());
+        Assertions.assertTrue(logsLevel2.containsAll(logsId));
+
+        Assertions.assertTrue(0, logService.getLogsByLevel(1).size());
+    }
+
 }
