@@ -20,3 +20,6 @@ jobs:
 
       - name: Run tests
         run: ./gradlew test
+
+      - name: Linter
+        run: ./gradlew lightrun
