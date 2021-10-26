@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AuthenticationTest {
+public class UserServiceTests {
 
     @BeforeEach
     public void clear() {
