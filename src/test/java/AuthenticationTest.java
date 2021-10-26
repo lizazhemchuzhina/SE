@@ -118,10 +118,11 @@ public class AuthenticationTest {
     }
 
     @Test
-    public void changeUserSettings() {
+    public void changeUserPassword() {
         UserService.register("user1", "password");
-        Assertions.assertFalse(UserService.changePassword("user1", "password"));
-        Assertions.assertTrue(UserService.changePassword("user1", "new_password"));
+        Assertions.assertFalse(UserService.changePassword("user1", "pass", "new_password"));
+        Assertions.assertFalse(UserService.changePassword("user1", "password", "password"));
+        Assertions.assertTrue(UserService.changePassword("user1", "password", "new_password"));
         Assertions.assertFalse(UserService.authenticate("user1", "password"));
         Assertions.assertTrue(UserService.authenticate("user1", "new_password"));
     }
