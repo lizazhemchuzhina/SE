@@ -82,4 +82,13 @@ public class UserService {
         User user = getUserByLoginThrowException(login);
         return new ArrayList<>(user.getWorkingGroups());
     }
+
+    static public boolean changePassword(@NotNull String login, @NotNull String oldPassword, @NotNull String newPassword) {
+        User user = getUserByLoginThrowException(login);
+        if (!authenticate(login, oldPassword) || Objects.equals(oldPassword, newPassword)) {
+            return false;
+        }
+        user.setPassword(newPassword);
+        return true;
+    }
 }

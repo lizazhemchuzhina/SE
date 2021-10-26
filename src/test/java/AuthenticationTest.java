@@ -119,6 +119,9 @@ public class AuthenticationTest {
 
     @Test
     public void changeUserPassword() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> UserService.changePassword("non-existent-user", "lallala", "se"),
+                "Expected illegal argument exception but it was not thrown");
         UserService.register("user1", "password");
         Assertions.assertFalse(UserService.changePassword("user1", "pass", "new_password"));
         Assertions.assertFalse(UserService.changePassword("user1", "password", "password"));
