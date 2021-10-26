@@ -63,4 +63,32 @@ public class LogServiceTests {
         Assertions.assertEquals(0, logService.getLogsByLevel(1).size());
     }
 
+    @Test
+    public void getLogsByLabel() {
+
+        Log log1 = new Log("ERROR: all fell and Liza is a cow bigger then Zhenya");
+        Log log2 = new Log("ERROR: all fell and Zhenya is a cow");
+        Log log3 = new Log("ERROR: all fell and we are not happy");
+        List<Integer> expectedLogsIdErr = new ArrayList<>(Arrays.asList(logService.add(log1), logService.add(log2), logService.add(log3)));
+        List<Integer> logsIdErr = logService.getLogsByLabel(Labels.ERROR);
+        Assertions.assertEquals(expectedLogsIdErr.size(), logsIdErr.size());
+        Assertions.assertTrue(expectedLogsIdErr.contains(logsIdErr));
+
+        Log log4 = new Log("INFO: all fell and Liza is a cow bigger then Zhenya");
+        Log log5 = new Log("WARNING: all fell and Zhenya is a cow");
+        Log log6 = new Log("WARNING: all fell and we are not happy");
+
+        List<Integer> expectedLogsIdInfo = new ArrayList<>(Arrays.asList(logService.add(log4)));
+        List<Integer> logsIdInfo = logService.getLogsByLabel(Labels.INFO);
+        Assertions.assertEquals(expectedLogsIdInfo.size(), logsIdInfo.size());
+        Assertions.assertTrue(expectedLogsIdInfo.contains(logsIdInfo));
+
+        List<Integer> expectedLogsIdWarning = new ArrayList<>(Arrays.asList(logService.add(log5), logService.add(log6)));
+        List<Integer> logsIdWarning = logService.getLogsByLabel(Labels.WARNING);
+        Assertions.assertEquals(expectedLogsIdWarning.size(), logsIdWarning.size());
+        Assertions.assertTrue(expectedLogsIdWarning.contains(logsIdWarning));
+
+        List<Integer> logsIdTB = logService.getLogsByLabel(Labels.TRACEBACK);
+        Assertions.assertEquals(0,logsIdTB.size());
+    }
 }
