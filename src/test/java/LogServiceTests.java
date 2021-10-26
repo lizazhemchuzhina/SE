@@ -60,7 +60,7 @@ public class LogServiceTests {
         Assertions.assertEquals(logsId.size(), logsLevel2.size());
         Assertions.assertTrue(logsLevel2.containsAll(logsId));
 
-        Assertions.assertTrue(0, logService.getLogsByLevel(1).size());
+        Assertions.assertEquals(0, logService.getLogsByLevel(1).size());
     }
 
 }
