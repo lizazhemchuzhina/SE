@@ -6,6 +6,11 @@ public class UserService {
     static private final HashMap<Integer, User> users = new HashMap<>();
     static private int currentId = 0;
 
+    static public void clearBase() {
+        users.clear();
+    }
+
+
     static private User getUserByLoginThrowException(String login) {
         Optional<User> userOpt = getUserByLogin(login);
         if (userOpt.isEmpty()) {
@@ -71,5 +76,10 @@ public class UserService {
             }
         }
         return usersInWorkingGroup;
+    }
+
+    static public List<String> getWorkingGroups(@NotNull String login) {
+        User user = getUserByLoginThrowException(login);
+        return new ArrayList<>(user.getWorkingGroups());
     }
 }
