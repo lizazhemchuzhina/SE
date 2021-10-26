@@ -116,4 +116,13 @@ public class AuthenticationTest {
         Assertions.assertTrue(workingGroups.contains("working_group2"));
         Assertions.assertTrue(workingGroups.contains("working_group3"));
     }
+
+    @Test
+    public void changeUserSettings() {
+        UserService.register("user1", "password");
+        Assertions.assertFalse(UserService.changePassword("user1", "password"));
+        Assertions.assertTrue(UserService.changePassword("user1", "new_password"));
+        Assertions.assertFalse(UserService.authenticate("user1", "password"));
+        Assertions.assertTrue(UserService.authenticate("user1", "new_password"));
+    }
 }
