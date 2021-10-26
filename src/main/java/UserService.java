@@ -91,4 +91,17 @@ public class UserService {
         user.setPassword(newPassword);
         return true;
     }
+
+    static public boolean changeLogin(@NotNull String oldLogin, @NotNull String password, @NotNull String newLogin) {
+        User user = getUserByLoginThrowException(oldLogin);
+        if (!authenticate(oldLogin, password) || Objects.equals(oldLogin, newLogin)) {
+            return false;
+        }
+        Optional<User> secondUser = getUserByLogin(newLogin);
+        if (secondUser.isPresent()) {
+            return false;
+        }
+        user.setLogin(newLogin);
+        return true;
+    }
 }
