@@ -91,4 +91,9 @@ public class LogServiceTests {
         List<Integer> logsIdTB = logService.getLogsByLabel(Labels.TRACEBACK);
         Assertions.assertEquals(0,logsIdTB.size());
     }
+
+    @Test
+    public void fail() {
+        Assertions.assertTrue(false);
+    }
 }
