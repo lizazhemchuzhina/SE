@@ -129,4 +129,19 @@ public class AuthenticationTest {
         Assertions.assertFalse(UserService.authenticate("user1", "password"));
         Assertions.assertTrue(UserService.authenticate("user1", "new_password"));
     }
+
+    @Test
+    public void changeUserLogin() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> UserService.changeLogin("non-existent-user", "password", "new_login"),
+                "Expected illegal argument exception but it was not thrown");
+        UserService.register("user1", "password");
+        Assertions.assertFalse(UserService.changeLogin("user1", "password", "user1"));
+        Assertions.assertFalse(UserService.changeLogin("user1", "pass", "user2"));
+        Assertions.assertTrue(UserService.changeLogin("user1", "password", "user2"));
+        Assertions.assertFalse(UserService.authenticate("user1", "password"));
+        Assertions.assertTrue(UserService.authenticate("user2", "password"));
+        UserService.register("user3", "qwerty");
+        Assertions.assertFalse(UserService.changeLogin("user3", "qwerty", "user2"));
+    }
 }
