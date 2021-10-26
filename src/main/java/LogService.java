@@ -61,4 +61,14 @@ public class LogService {
         return logsId;
     }
 
+    public List<Integer> getLogsByLabel(Labels label) {
+        List<Integer> logsId = new ArrayList<>();
+        for (Map.Entry<Integer, Log> map : logs.entrySet()) {
+            if (map.getValue().getLabel() == label) {
+                logsId.add(map.getKey());
+            }
+        }
+        return logsId;
+    }
+
 }
