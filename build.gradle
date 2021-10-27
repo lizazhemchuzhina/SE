@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id 'checkstyle'
 }
 
 
@@ -28,4 +29,23 @@ jacocoTestReport {
         csv.required = false
     }
     dependsOn test // tests are required to run before generating the report
+}
+
+checkstyle {
+    toolVersion '7.8.1'
+    configFile file("${rootDir}/config/checkstyle/checkstyle.xml")
+}
+
+checkstyleMain {
+    source = fileTree('.') {
+        excludes = ['.*/**', 'gradle*', 'build/**', '*.iml', '*.log', '**/*.jar']
+    }
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.required = false
+        html.required = true
+        html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
+    }
 }
