@@ -48,8 +48,23 @@ jobs:
           chmod +x gradlew
           ./gradlew jacocoTestReport
 
-      - name: Make artifact
+      - name: Make artefact test-coverage
         uses: actions/upload-artifact@v2
         with:
           name: test-coverage
           path: build/reports/jacoco/test/html
+
+  linter:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run checkstyle
+        run: |
+          chmod +x gradlew
+          ./gradlew check
+
+      - name: Make artefact linter
+        uses: actions/upload-artifact@v2
+        with:
+          name: linter
+          path: build/reports/checkstyle
