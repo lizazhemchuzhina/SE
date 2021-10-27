@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class LogService {
     private final HashMap<Integer, Log> logs = new HashMap<>();
-    private int currentId = 0;
+    private int currentId;
     private int logLevelsUpperBound = 10;
 
     public int size() {

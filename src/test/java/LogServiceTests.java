@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LogServiceTests {
-    LogService logService;
+    private LogService logService;
 
     @BeforeEach
     public void createLogService() {
@@ -89,6 +89,6 @@ public class LogServiceTests {
         Assertions.assertTrue(expectedLogsIdWarning.containsAll(logsIdWarning));
 
         List<Integer> logsIdTB = logService.getLogsByLabel(Labels.TRACEBACK);
-        Assertions.assertEquals(0,logsIdTB.size());
+        Assertions.assertEquals(0, logsIdTB.size());
     }
 }

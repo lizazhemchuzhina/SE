@@ -1,17 +1,18 @@
-import java.util.*;
 
 import org.jetbrains.annotations.NotNull;
 
-public class UserService {
-    static private final HashMap<Integer, User> users = new HashMap<>();
-    static private int currentId = 0;
+import java.util.*;
 
-    static public void clearBase() {
+public class UserService {
+    private static final HashMap<Integer, User> users = new HashMap<>();
+    private static int currentId;
+
+    public static void clearBase() {
         users.clear();
     }
 
 
-    static private User getUserByLoginThrowException(String login) {
+    private static User getUserByLoginThrowException(String login) {
         Optional<User> userOpt = getUserByLogin(login);
         if (userOpt.isEmpty()) {
             throw new IllegalArgumentException("User not found");
@@ -19,7 +20,7 @@ public class UserService {
         return userOpt.get();
     }
 
-    static private Optional<User> getUserByLogin(String login) {
+    private static Optional<User> getUserByLogin(String login) {
         for (Map.Entry<Integer, User> entry : users.entrySet()) {
             if (entry.getValue().getLogin().equals(login)) {
                 return Optional.of(entry.getValue());
@@ -28,7 +29,7 @@ public class UserService {
         return Optional.empty();
     }
 
-    static public boolean register(@NotNull String login, @NotNull String password) {
+    public static boolean register(@NotNull String login, @NotNull String password) {
         if (getUserByLogin(login).isPresent()) {
             return false;
         }
@@ -37,37 +38,37 @@ public class UserService {
         return true;
     }
 
-    static public boolean authenticate(@NotNull String login, @NotNull String password) {
+    public static boolean authenticate(@NotNull String login, @NotNull String password) {
         Optional<User> user = getUserByLogin(login);
         return (user.isPresent() && Objects.equals(user.get().getPassword(), password));
     }
 
-    static public Group authorize(@NotNull String login) {
+    public static Group authorize(@NotNull String login) {
         User user = getUserByLoginThrowException(login);
         return user.getGroup();
     }
 
-    static public void changeGroup(@NotNull String login, Group group) {
+    public static void changeGroup(@NotNull String login, Group group) {
         User user = getUserByLoginThrowException(login);
         user.setGroup(group);
     }
 
-    static public void addWorkingGroup(@NotNull String login, @NotNull String workingGroup) {
+    public static void addWorkingGroup(@NotNull String login, @NotNull String workingGroup) {
         User user = getUserByLoginThrowException(login);
         user.addWorkingGroup(workingGroup);
     }
 
-    static public boolean userInWorkingGroup(@NotNull String login, @NotNull String workingGroup) {
+    public static boolean userInWorkingGroup(@NotNull String login, @NotNull String workingGroup) {
         User user = getUserByLoginThrowException(login);
         return user.isInWorkingGroup(workingGroup);
     }
 
-    static public boolean removeFromWorkingGroup(@NotNull String login, @NotNull String workingGroup) {
+    public static boolean removeFromWorkingGroup(@NotNull String login, @NotNull String workingGroup) {
         User user = getUserByLoginThrowException(login);
         return user.removeWorkingGroup(workingGroup);
     }
 
-    static public List<String> getUsersFromWorkingGroup(@NotNull String workingGroup) {
+    public static List<String> getUsersFromWorkingGroup(@NotNull String workingGroup) {
         List<String> usersInWorkingGroup = new ArrayList<>();
         for (Map.Entry<Integer, User> entry : users.entrySet()) {
             User user = entry.getValue();
@@ -78,12 +79,12 @@ public class UserService {
         return usersInWorkingGroup;
     }
 
-    static public List<String> getWorkingGroups(@NotNull String login) {
+    public static List<String> getWorkingGroups(@NotNull String login) {
         User user = getUserByLoginThrowException(login);
         return new ArrayList<>(user.getWorkingGroups());
     }
 
-    static public boolean changePassword(@NotNull String login, @NotNull String oldPassword, @NotNull String newPassword) {
+    public static boolean changePassword(@NotNull String login, @NotNull String oldPassword, @NotNull String newPassword) {
         User user = getUserByLoginThrowException(login);
         if (!authenticate(login, oldPassword) || Objects.equals(oldPassword, newPassword)) {
             return false;
@@ -92,7 +93,7 @@ public class UserService {
         return true;
     }
 
-    static public boolean changeLogin(@NotNull String oldLogin, @NotNull String password, @NotNull String newLogin) {
+    public static boolean changeLogin(@NotNull String oldLogin, @NotNull String password, @NotNull String newLogin) {
         User user = getUserByLoginThrowException(oldLogin);
         if (!authenticate(oldLogin, password) || Objects.equals(oldLogin, newLogin)) {
             return false;
@@ -105,3 +106,4 @@ public class UserService {
         return true;
     }
 }
+

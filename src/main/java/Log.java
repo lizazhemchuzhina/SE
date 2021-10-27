@@ -1,7 +1,7 @@
 public class Log {
     private String message;
-    private int level = 0;
-    Labels label;
+    private int level;
+    private Labels label;
 
     public Labels getLabel() {
         return label;

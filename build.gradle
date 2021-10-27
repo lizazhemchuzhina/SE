@@ -4,7 +4,6 @@ plugins {
     id 'checkstyle'
 }
 
-
 group 'org.example'
 version '1.0-SNAPSHOT'
 
@@ -46,6 +45,5 @@ tasks.withType(Checkstyle) {
     reports {
         xml.required = false
         html.required = true
-        html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
     }
 }
