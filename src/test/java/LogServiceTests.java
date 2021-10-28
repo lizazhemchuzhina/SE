@@ -1,3 +1,6 @@
+import Models.Labels;
+import Models.Log;
+import Services.LogService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class LogServiceTests {
-    LogService logService;
+    private LogService logService;
 
     @BeforeEach
     public void createLogService() {
@@ -89,6 +92,6 @@ public class LogServiceTests {
         Assertions.assertTrue(expectedLogsIdWarning.containsAll(logsIdWarning));
 
         List<Integer> logsIdTB = logService.getLogsByLabel(Labels.TRACEBACK);
-        Assertions.assertEquals(0,logsIdTB.size());
+        Assertions.assertEquals(0, logsIdTB.size());
     }
 }

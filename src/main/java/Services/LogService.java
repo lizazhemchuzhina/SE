@@ -1,3 +1,8 @@
+package Services;
+
+import Models.Labels;
+import Models.Log;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -5,7 +10,7 @@ import java.util.Map;
 
 public class LogService {
     private final HashMap<Integer, Log> logs = new HashMap<>();
-    private int currentId = 0;
+    private int currentId;
     private int logLevelsUpperBound = 10;
 
     public int size() {
