@@ -1,4 +1,4 @@
-import Services.LogService;
+import Models.FileWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
