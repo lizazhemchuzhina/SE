@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class FileServiceTests {
     @Test
-    public void addFilesForGroup() {
+    public void testFileWrapper() {
         FileWrapper file = new FileWrapper("path_to_file");
         Assertions.assertEquals("path_to_file", file.getPath().toString());
         Integer firstLogId = file.addLog("ERROR: expected X, but got Y");
@@ -16,6 +16,6 @@ public class FileServiceTests {
         Assertions.assertTrue(file.contains(firstLogId));
         Assertions.assertTrue(file.contains(secondLogId));
         Assertions.assertTrue(file.contains(new ArrayList<>(Arrays.asList(firstLogId, secondLogId))));
-        Assertions.assertTrue(file.contains(new ArrayList<>(Arrays.asList(firstLogId, secondLogId, firstLogId + secondLogId))));
+        Assertions.assertFalse(file.contains(new ArrayList<>(Arrays.asList(firstLogId, secondLogId, firstLogId + secondLogId + 1))));
     }
 }
