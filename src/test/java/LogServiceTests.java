@@ -94,4 +94,28 @@ public class LogServiceTests {
         List<Integer> logsIdTB = logService.getLogsByLabel(Labels.TRACEBACK);
         Assertions.assertEquals(0, logsIdTB.size());
     }
+
+    @Test
+    public void testDelete() {
+        Log log = new Log("ERROR: all fell");
+        Log log1 = new Log("WARNING: might fell");
+        Log log2 = new Log("INFO: didn't fall");
+        Log log3 = new Log("INFO: sth happened");
+
+        int logId = logService.add(log);
+        int log1Id = logService.add(log1);
+        logService.add(log2);
+        logService.add(log3);
+
+        Assertions.assertEquals(4, logService.size());
+        Assertions.assertTrue(logService.delete(logId));
+        Assertions.assertEquals(3, logService.size());
+        Assertions.assertFalse(logService.delete(logId));
+
+        Assertions.assertEquals(3, logService.size());
+        Assertions.assertTrue(logService.deleteByLabel(Labels.INFO));
+        Assertions.assertFalse(logService.deleteByLabel(Labels.TRACEBACK));
+        Assertions.assertEquals(1, logService.size());
+        Assertions.assertTrue(logService.contains(log1Id));
+    }
 }
