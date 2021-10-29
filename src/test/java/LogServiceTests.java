@@ -18,7 +18,7 @@ public class LogServiceTests {
     }
 
     @Test
-    public void addLog() {
+    public void testAddLog() {
         Assertions.assertEquals(0, logService.size());
         Log log = new Log("ERROR: all fell");
         int logId = logService.add(log);
@@ -30,7 +30,7 @@ public class LogServiceTests {
     }
 
     @Test
-    public void changeLogLevel() {
+    public void testChangeLogLevel() {
         Log log = new Log("ERROR: all fell");
         int logId = logService.add(log);
         Assertions.assertEquals(0, logService.getLogLevel(logId));
@@ -45,7 +45,7 @@ public class LogServiceTests {
     }
 
     @Test
-    public void getLogsByLevel() {
+    public void testGetLogsByLevel() {
         Log log = new Log("ERROR: all fell");
         int logId = logService.add(log);
 
@@ -67,7 +67,7 @@ public class LogServiceTests {
     }
 
     @Test
-    public void getLogsByLabel() {
+    public void testGetLogsByLabel() {
 
         Log log1 = new Log("ERROR: all fell and Liza is a cow bigger then Zhenya");
         Log log2 = new Log("ERROR: all fell and Zhenya is a cow");
