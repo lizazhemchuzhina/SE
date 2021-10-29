@@ -38,6 +38,7 @@ public class LogServiceTests {
         Assertions.assertTrue(logService.changeLogLevel(logId, 3));
         Log log2 = new Log("ERROR: all fell and Zhenya is a cow");
         Log log3 = new Log("ERROR: all fell and we are not happy");
+
         List<Integer> logsId = new ArrayList<>(Arrays.asList(0, logService.add(log2), logService.add(log3)));
         Assertions.assertTrue(logService.changeLogLevel(logsId, 4));
         List<Integer> expectedLogsId = new ArrayList<>(Arrays.asList(4, 4, 4));
