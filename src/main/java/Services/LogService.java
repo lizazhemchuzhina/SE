@@ -76,4 +76,23 @@ public class LogService {
         return logsId;
     }
 
+    public boolean delete(int logId) {
+        if (logs.containsKey(logId)) {
+            logs.remove(logId);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean deleteByLabel(Labels label) {
+        boolean wasDeletion = false;
+        List<Integer> logsToDelete = getLogsByLabel(label);
+        for (int id: logsToDelete) {
+            if (delete(id)) {
+                wasDeletion = true;
+            }
+        }
+        return wasDeletion;
+    }
+
 }
