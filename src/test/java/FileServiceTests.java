@@ -43,7 +43,7 @@ public class FileServiceTests {
         Assertions.assertEquals(0, FileService.getFiles("project3").size());
     }
     @Test
-    public void testGetAllLogs(){
+    public void testGetAllLogs() {
         FileWrapper file1 = new FileWrapper("path_to_file1");
         FileWrapper file2 = new FileWrapper("path_to_file2");
         FileWrapper file3 = new FileWrapper("path_to_file3");

@@ -1,9 +1,6 @@
-import Models.Labels;
 import Models.Log;
 import Services.LogSelectionService;
-import Services.LogService;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -26,3 +23,4 @@ public class LogSelectionServiceTests {
     }
 
 }
+

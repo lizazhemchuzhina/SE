@@ -16,3 +16,4 @@ public class LogSelectionService {
         return modelOutput;
     }
 }
+

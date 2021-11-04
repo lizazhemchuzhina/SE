@@ -130,7 +130,7 @@ public class LogServiceTests {
         logService.add(log2);
         logService.add(log3);
         List<Log> expectedLogs = new ArrayList<>(Arrays.asList(log1, log2, log3));
-        Assertions.assertEquals(expectedLogs.size(),logService.getAllLogs().size());
+        Assertions.assertEquals(expectedLogs.size(), logService.getAllLogs().size());
         Assertions.assertTrue(expectedLogs.containsAll(logService.getAllLogs()));
     }
 }
