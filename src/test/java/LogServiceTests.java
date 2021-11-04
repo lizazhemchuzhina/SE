@@ -119,4 +119,18 @@ public class LogServiceTests {
         Assertions.assertEquals(1, logService.size());
         Assertions.assertTrue(logService.contains(log1Id));
     }
+
+    @Test
+    public void testGetAllLogs() {
+        Log log1 = new Log("WARNING: might fell");
+        Log log2 = new Log("INFO: didn't fall");
+        Log log3 = new Log("INFO: sth happened");
+        Assertions.assertEquals(0, logService.getAllLogs().size());
+        logService.add(log1);
+        logService.add(log2);
+        logService.add(log3);
+        List<Log> expectedLogs = new ArrayList<>(Arrays.asList(log1, log2, log3));
+        Assertions.assertEquals(expectedLogs.size(),logService.getAllLogs().size());
+        Assertions.assertTrue(expectedLogs.containsAll(logService.getAllLogs()));
+    }
 }

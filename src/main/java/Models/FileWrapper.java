@@ -32,11 +32,15 @@ public class FileWrapper {
     }
 
     public boolean contains(List<Integer> logsId) {
-        for (Integer id: logsId) {
+        for (Integer id : logsId) {
             if (!logService.contains(id)) {
                 return false;
             }
         }
         return true;
+    }
+
+    public List<Log> getAllLogs() {
+        return logService.getAllLogs();
     }
 }

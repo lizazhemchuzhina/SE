@@ -1,7 +1,9 @@
 package Services;
 
 import Models.FileWrapper;
+import Models.Log;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -29,5 +31,14 @@ public class FileService {
             return Collections.emptyList();
         }
         return projects.get(projectName);
+    }
+
+    public static List<Log> getLogsFromProject(String projectName) {
+        List<FileWrapper> filesInProject = getFiles(projectName);
+        List<Log> logs = new ArrayList<>();
+        for (FileWrapper file : filesInProject) {
+            logs.addAll(file.getAllLogs());
+        }
+        return logs;
     }
 }

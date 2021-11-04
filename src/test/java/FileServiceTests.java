@@ -1,4 +1,5 @@
 import Models.FileWrapper;
+import Models.Log;
 import Services.FileService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -40,5 +41,27 @@ public class FileServiceTests {
         Assertions.assertTrue(expectedFiles.containsAll(filesInProject1));
 
         Assertions.assertEquals(0, FileService.getFiles("project3").size());
+    }
+    @Test
+    public void testGetAllLogs(){
+        FileWrapper file1 = new FileWrapper("path_to_file1");
+        FileWrapper file2 = new FileWrapper("path_to_file2");
+        FileWrapper file3 = new FileWrapper("path_to_file3");
+
+        FileService.add("project1", new ArrayList<>(Arrays.asList(file1, file2)));
+        FileService.add("project2", new ArrayList<>(List.of(file3)));
+        Log log1 = new Log("WARNING: might fell");
+        Log log2 = new Log("INFO: didn't fall");
+        Log log3 = new Log("INFO: sth happened");
+        file1.addLog("WARNING: might fell");
+        file2.addLog("INFO: didn't fall");
+        file3.addLog("INFO: sth happened");
+        List<Log> expectedProject1Logs = new ArrayList<>(Arrays.asList(log1, log2));
+        List<Log> expectedProject2Logs = new ArrayList<>(List.of(log3));
+        Assertions.assertEquals(expectedProject1Logs.size(), FileService.getLogsFromProject("project1").size());
+        Assertions.assertTrue(expectedProject1Logs.containsAll(FileService.getLogsFromProject("project1")));
+
+        Assertions.assertEquals(expectedProject2Logs.size(), FileService.getLogsFromProject("project2").size());
+        Assertions.assertTrue(expectedProject2Logs.containsAll(FileService.getLogsFromProject("project2")));
     }
 }

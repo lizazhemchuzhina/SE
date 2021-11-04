@@ -87,7 +87,7 @@ public class LogService {
     public boolean deleteByLabel(Labels label) {
         boolean wasDeletion = false;
         List<Integer> logsToDelete = getLogsByLabel(label);
-        for (int id: logsToDelete) {
+        for (int id : logsToDelete) {
             if (delete(id)) {
                 wasDeletion = true;
             }
@@ -95,4 +95,7 @@ public class LogService {
         return wasDeletion;
     }
 
+    public List<Log> getAllLogs() {
+        return new ArrayList<>(logs.values());
+    }
 }

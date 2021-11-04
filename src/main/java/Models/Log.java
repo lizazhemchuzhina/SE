@@ -1,6 +1,8 @@
 package Models;
 
 
+import java.util.Objects;
+
 public class Log {
     private String message;
     private int level;
@@ -44,5 +46,18 @@ public class Log {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Log)) return false;
+        Log log = (Log) o;
+        return getLevel() == log.getLevel() && Objects.equals(getMessage(), log.getMessage()) && getLabel() == log.getLabel();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getMessage(), getLevel(), getLabel());
     }
 }
