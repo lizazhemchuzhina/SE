@@ -3,10 +3,7 @@ package Services;
 import Models.Labels;
 import Models.Log;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class LogService {
     private final HashMap<Integer, Log> logs = new HashMap<>();
@@ -97,5 +94,18 @@ public class LogService {
 
     public List<Log> getAllLogs() {
         return new ArrayList<>(logs.values());
+    }
+
+    public List<Log> getLogsInInterval(Date left, Date right) {
+        List<Log> logsInInterval = new ArrayList<>();
+        for (Log log: logs.values()) {
+            if (log.getDate() == null) {
+                continue;
+            }
+            if (log.getDate().after(left) && log.getDate().before(right)) {
+                logsInInterval.add(log);
+            }
+        }
+        return logsInInterval;
     }
 }

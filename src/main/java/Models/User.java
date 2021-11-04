@@ -8,12 +8,22 @@ public class User {
     private String password;
     private Group group;
     private Set<String> workingGroups;
+    private Roles role;
+
+    public Roles getRole() {
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
+    }
 
     public User(String login, String password) {
         this.login = login;
         this.password = password;
         this.group = Group.NONAUTHORIZED;
         this.workingGroups = new HashSet<>();
+        this.role = Roles.NONE;
     }
 
     public String getLogin() {

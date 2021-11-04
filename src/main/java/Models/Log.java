@@ -1,15 +1,25 @@
 package Models;
 
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Log {
     private String message;
     private int level;
     private Labels label;
+    private Date date;
 
     public Labels getLabel() {
         return label;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     private void setLabel(String message) {
@@ -38,6 +48,12 @@ public class Log {
     public Log(String message) {
         this.message = message;
         setLabel(message);
+    }
+
+    public Log(String message, Date date) {
+        this.message = message;
+        setLabel(message);
+        this.date = date;
     }
 
     public String getMessage() {

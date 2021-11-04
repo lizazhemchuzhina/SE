@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class LogServiceTests {
@@ -132,5 +133,51 @@ public class LogServiceTests {
         List<Log> expectedLogs = new ArrayList<>(Arrays.asList(log1, log2, log3));
         Assertions.assertEquals(expectedLogs.size(), logService.getAllLogs().size());
         Assertions.assertTrue(expectedLogs.containsAll(logService.getAllLogs()));
+    }
+
+    @Test
+    public void testLogsDate() {
+        Date curDate = new Date();
+        Log log1 = new Log("WARNING: might fell", curDate);
+        Assertions.assertEquals(curDate, log1.getDate());
+    }
+
+    @Test
+    public void testLogsInInterval() {
+        Date date1 = new Date();
+        Date date2 = new Date();
+        Date date3 = new Date();
+        Date date4 = new Date();
+        date2.setTime(date1.getTime() + 100);
+        date3.setTime(date2.getTime() + 100);
+        date4.setTime(date3.getTime() + 100);
+
+        Date smallDateLeft = new Date();
+        Date smallDateRight = new Date();
+        smallDateLeft.setTime(date1.getTime() - 200);
+        smallDateRight.setTime(date1.getTime() - 50);
+
+        Log log1 = new Log("WARNING: might fell", date1);
+        Log log2 = new Log("INFO: didn't fall", date2);
+        Log log3 = new Log("INFO: sth happened", date3);
+        Log log4 = new Log("INFO: all fell and Liza is a cow bigger then Zhenya", date4);
+        Log log5 = new Log("ERROR: all fell and Zhenya is a cow");
+
+        logService.add(log1);
+        logService.add(log2);
+        logService.add(log3);
+        logService.add(log4);
+        logService.add(log5);
+        List<Log> expectedLogs = new ArrayList<>(Arrays.asList(log2, log3));
+
+        Assertions.assertEquals(0, logService.getLogsInInterval(smallDateLeft, smallDateRight).size());
+
+        Date left = new Date();
+        Date right = new Date();
+        left.setTime(date2.getTime() - 50);
+        right.setTime(date3.getTime() + 50);
+
+        Assertions.assertEquals(expectedLogs.size(), logService.getLogsInInterval(left, right).size());
+        Assertions.assertTrue(expectedLogs.containsAll(logService.getLogsInInterval(left, right)));
     }
 }

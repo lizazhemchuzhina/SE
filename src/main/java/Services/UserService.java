@@ -1,6 +1,7 @@
 package Services;
 
 import Models.Group;
+import Models.Roles;
 import Models.User;
 import org.jetbrains.annotations.NotNull;
 
@@ -107,6 +108,20 @@ public class UserService {
         }
         user.setLogin(newLogin);
         return true;
+    }
+
+    public static boolean changeRole(@NotNull String login, @NotNull String password, @NotNull Roles newRole) {
+        User user = getUserByLoginThrowException(login);
+        if (!authenticate(login, password) || user.getRole() == newRole) {
+            return false;
+        }
+        user.setRole(newRole);
+        return true;
+    }
+
+    public static Roles getUserRole(@NotNull String login, @NotNull String password) {
+        User user = getUserByLoginThrowException(login);
+        return user.getRole();
     }
 }
 

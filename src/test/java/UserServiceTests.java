@@ -1,4 +1,5 @@
 import Models.Group;
+import Models.Roles;
 import Services.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -145,5 +146,19 @@ public class UserServiceTests {
         Assertions.assertTrue(UserService.authenticate("user2", "password"));
         UserService.register("user3", "qwerty");
         Assertions.assertFalse(UserService.changeLogin("user3", "qwerty", "user2"));
+    }
+
+    @Test
+    public void testChangeUserRole() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> UserService.changeRole("non-existent-user", "password", Roles.BOD),
+                "Expected illegal argument exception but it was not thrown");
+
+        UserService.register("user1", "password");
+        Assertions.assertFalse(UserService.changeRole("user1", "password1", Roles.CC));
+        Assertions.assertFalse(UserService.changeRole("user1", "password", Roles.NONE));
+
+        Assertions.assertTrue(UserService.changeRole("user1", "password", Roles.CC));
+        Assertions.assertEquals(Roles.CC, UserService.getUserRole("user1", "password"));
     }
 }
