@@ -3,9 +3,6 @@
 <a href="https://github.com/lizazhemchuzhina/SE/graphs/contributors" target="_blank">
 <img src="https://img.shields.io/github/contributors-anon/lizazhemchuzhina/SE.svg" alt="GitHub contributors">
 </a>
-<a href="https://github.com/lizazhemchuzhina/SE/commits/2.x" target="_blank">
-<img src="https://img.shields.io/github/commit-activity/y/lizazhemchuzhina/SE.svg" alt="GitHub commit activity">
-</a>
 ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
 ## Introduction
 ML logs analyzer can be used for real-time monitoring of your project's logs in order to detect any changes and prevent
