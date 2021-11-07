@@ -16,8 +16,9 @@ Monitor logs, analyze them, notice any significant changes.
 ### What can you do with ML logs analyzer?
 The project is currently under development, so there are certain limitations to its functionality at the moment (but please keep in touch for future updates).
 1. Logs can be analyzed so that the most critical ones for failure prediction are selected.
-2. Users are registered in the system and can be added to working groups that correspond to projects with certain team roles.
+2. Users are registered in the system and can be added to working groups that correspond to projects.
 3. Logs corresponding to projects can be stored and queried.
+4. Users are divided based on their team role on the project.
 ### Project presentation
 https://docs.google.com/presentation/d/1QaCWYwD5QQYgBTRzfzJL7RVKDnLpcdrF-FIhumKr3gk/edit?usp=sharing
 
