@@ -17,11 +17,8 @@ We want to know if a project is about to break down before it actually happens.
 ### How?
 Monitor logs, analyze them, notice any significant changes.
 ### What can you do with ML logs analyzer?
-TBD:
-1. Your logs are monitored in real-time, and you are notified whenever there are any changes that might indicate a
-   failure.
-2. You are provided with the selected logs and failure type prediction.
-3. You can store the history of your project's break-downs and assign team roles to configure notifications.
+The project is currently under development, so there are certain limitations to its functionality at the moment (but please keep in touch for future updates).\
+Currently your logs can be analyzed so that the most critical ones for failure prediction are selected.
 ### Project presentation
 https://docs.google.com/presentation/d/1QaCWYwD5QQYgBTRzfzJL7RVKDnLpcdrF-FIhumKr3gk/edit?usp=sharing
 
