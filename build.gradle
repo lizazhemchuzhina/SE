@@ -47,3 +47,11 @@ tasks.withType(Checkstyle) {
         html.required = true
     }
 }
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'Main'
+        )
+    }
+}
