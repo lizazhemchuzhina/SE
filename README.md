@@ -23,7 +23,7 @@ The project is currently under development, so there are certain limitations to 
 https://docs.google.com/presentation/d/1QaCWYwD5QQYgBTRzfzJL7RVKDnLpcdrF-FIhumKr3gk/edit?usp=sharing
 
 ## Project ROADMAP
-https://venngage.net/ps/dym6Lzk3GPQ/ml-logs-analyzer
+https://venngage.net/ps/c8wN9WpFYac/ml-logs-analyzer-updated
 
 ## Installation
 Currently ML logs analyzer is available as a separate library. So you can simply clone and use it:
