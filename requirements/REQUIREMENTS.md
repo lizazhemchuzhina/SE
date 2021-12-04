@@ -8,6 +8,9 @@
 ## Дежурные
 В режиме дежурства (непрерывно) отслеживают работу продукта и устраняют или предотвращают ошибки, возникающие на стороне разработчика.
 
+# Use Case диаграмма
+![diagram](https://github.com/lizazhemchuzhina/SE/blob/users-roles/requirements/use-case-diagram.jpg)
+
 # User Story и Job Story
 ## User Story:
 
