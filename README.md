@@ -25,7 +25,7 @@ https://docs.google.com/presentation/d/1QaCWYwD5QQYgBTRzfzJL7RVKDnLpcdrF-FIhumKr
 https://venngage.net/ps/dym6Lzk3GPQ/ml-logs-analyzer
 
 ## Installation
-Currently ML logs analyzer is available as a separate library. So you can simply clone source files and use it:
+Currently ML logs analyzer is available as a separate library. So you can simply clone the project and use it as source files:
 
 ```bash
 git clone https://github.com/lizazhemchuzhina/SE.git
