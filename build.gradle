@@ -4,7 +4,7 @@ plugins {
     id 'checkstyle'
 }
 
-group 'org.example'
+group 'ru.hse.se.ml.logs'
 version '1.0-SNAPSHOT'
 
 repositories {
