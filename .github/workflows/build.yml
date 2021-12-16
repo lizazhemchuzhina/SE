@@ -19,7 +19,6 @@ jobs:
           ./gradlew build
 
   tests:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -34,7 +33,6 @@ jobs:
           ./gradlew test
 
   coverage:
-    needs: tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -55,7 +53,6 @@ jobs:
           path: build/reports/jacoco/test/html
 
   linter:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
