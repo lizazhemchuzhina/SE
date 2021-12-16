@@ -17,8 +17,11 @@ public class FileServiceTests {
         Assertions.assertEquals(2, file.numberOfLogs());
         Assertions.assertTrue(file.contains(firstLogId));
         Assertions.assertTrue(file.contains(secondLogId));
-        Assertions.assertTrue(file.contains(new ArrayList<>(Arrays.asList(firstLogId, secondLogId))));
-        Assertions.assertFalse(file.contains(new ArrayList<>(Arrays.asList(firstLogId, secondLogId, firstLogId + secondLogId + 1))));
+        Assertions.assertTrue(file.contains(
+                new ArrayList<>(Arrays.asList(firstLogId, secondLogId)))
+        );
+        Assertions.assertFalse(file.contains(new ArrayList<>(Arrays.asList(firstLogId, secondLogId,
+                firstLogId + secondLogId + 1))));
     }
 
     @Test

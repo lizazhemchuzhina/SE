@@ -66,7 +66,8 @@ public class UserService {
         return user.isInWorkingGroup(workingGroup);
     }
 
-    public static boolean removeFromWorkingGroup(@NotNull String login, @NotNull String workingGroup) {
+    public static boolean removeFromWorkingGroup(@NotNull String login,
+                                                 @NotNull String workingGroup) {
         User user = getUserByLoginThrowException(login);
         return user.removeWorkingGroup(workingGroup);
     }
@@ -87,7 +88,8 @@ public class UserService {
         return new ArrayList<>(user.getWorkingGroups());
     }
 
-    public static boolean changePassword(@NotNull String login, @NotNull String oldPassword, @NotNull String newPassword) {
+    public static boolean changePassword(@NotNull String login, @NotNull String oldPassword,
+                                         @NotNull String newPassword) {
         User user = getUserByLoginThrowException(login);
         if (!authenticate(login, oldPassword) || Objects.equals(oldPassword, newPassword)) {
             return false;
@@ -96,7 +98,8 @@ public class UserService {
         return true;
     }
 
-    public static boolean changeLogin(@NotNull String oldLogin, @NotNull String password, @NotNull String newLogin) {
+    public static boolean changeLogin(@NotNull String oldLogin, @NotNull String password,
+                                      @NotNull String newLogin) {
         User user = getUserByLoginThrowException(oldLogin);
         if (!authenticate(oldLogin, password) || Objects.equals(oldLogin, newLogin)) {
             return false;

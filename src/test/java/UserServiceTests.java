@@ -24,53 +24,94 @@ public class UserServiceTests {
     }
 
     @Test
-    public void testUserAuthorization() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> UserService.authorize("NonAuthorized_user"),
+    public void testUserAuthorizationThrowsException() {
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> UserService.authorize("NonAuthorized_user"),
                 "Expected illegal argument exception but it was not thrown");
+    }
+
+    @Test
+    public void testUserAuthorizationNonAuthorized() {
         UserService.register("NonAuthorized_user", "120912192109");
-        Assertions.assertEquals(Group.NONAUTHORIZED, UserService.authorize("NonAuthorized_user"));
+        Assertions.assertEquals(Group.NONAUTHORIZED,
+                UserService.authorize("NonAuthorized_user"));
+    }
+
+    @Test
+    public void testUserAuthorizationUser() {
         UserService.register("authorized_user", "qwerty");
         UserService.changeGroup("authorized_user", Group.USER);
         Assertions.assertEquals(Group.USER, UserService.authorize("authorized_user"));
+    }
+
+    @Test
+    public void testUserAuthorizationAdmin() {
+        UserService.register("authorized_user", "qwerty");
         UserService.changeGroup("authorized_user", Group.ADMIN);
         Assertions.assertEquals(Group.ADMIN, UserService.authorize("authorized_user"));
+    }
+
+
+    @Test
+    public void testChangeGroupsForNonExistentUserThrowsException() {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> UserService.changeGroup("NonExistent_user", Group.USER),
                 "Expected illegal argument exception but it was not thrown");
     }
 
     @Test
-    public void testUserWorkingGroups() {
+    public void testUserInWorkingGroupNonExistentUserThrowsException() {
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> UserService.userInWorkingGroup("NonExistent_user", "some_group"),
-                "Expected illegal argument exception but it was not thrown");
+                () -> UserService.userInWorkingGroup(
+                        "NonExistent_user", "some_group"
+                ), "Expected illegal argument exception but it was not thrown");
+    }
+
+    @Test
+    public void testAddWorkingGroupNonExistentUserThrowsException() {
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> UserService.addWorkingGroup("NonExistent_user", "some_group"),
-                "Expected illegal argument exception but it was not thrown");
+                () -> UserService.addWorkingGroup(
+                        "NonExistent_user", "some_group"
+                ), "Expected illegal argument exception but it was not thrown");
+    }
+
+    @Test
+    public void testAuthorizedUserWorkingGroups() {
         UserService.register("authorized_user", "qwerty");
         UserService.addWorkingGroup("authorized_user", "working_group1");
         UserService.addWorkingGroup("authorized_user", "working_group2");
-        Assertions.assertTrue(UserService.userInWorkingGroup("authorized_user", "working_group1"));
-        Assertions.assertTrue(UserService.userInWorkingGroup("authorized_user", "working_group2"));
-        Assertions.assertFalse(UserService.userInWorkingGroup("authorized_user", "working_group3"));
+        Assertions.assertTrue(UserService.userInWorkingGroup("authorized_user",
+                "working_group1"));
+        Assertions.assertTrue(UserService.userInWorkingGroup("authorized_user",
+                "working_group2"));
+        Assertions.assertFalse(UserService.userInWorkingGroup("authorized_user",
+                "working_group3"));
     }
 
     @Test
-    public void tetsUserRemoveFromWorkingGroup() {
+    public void testRemoveFromWorkingGroupNonExistentUserThrowsException() {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> UserService.removeFromWorkingGroup("user", "some_group"),
                 "Expected illegal argument exception but it was not thrown");
-        UserService.register("user", "password");
-        UserService.addWorkingGroup("user", "working_group1");
-        UserService.addWorkingGroup("user", "working_group2");
-        Assertions.assertFalse(UserService.removeFromWorkingGroup("user", "working_group3"));
-        Assertions.assertTrue(UserService.removeFromWorkingGroup("user", "working_group1"));
-        Assertions.assertFalse(UserService.userInWorkingGroup("user", "working_group1"));
-        Assertions.assertTrue(UserService.userInWorkingGroup("user", "working_group2"));
     }
 
     @Test
-    public void testWhoIsInWorkingGroup() {
+    public void testAuthorizedUserRemoveFromWorkingGroup() {
+        UserService.register("user", "password");
+        UserService.addWorkingGroup("user", "working_group1");
+        UserService.addWorkingGroup("user", "working_group2");
+        Assertions.assertFalse(UserService.removeFromWorkingGroup("user",
+                "working_group3"));
+        Assertions.assertTrue(UserService.removeFromWorkingGroup("user",
+                "working_group1"));
+        Assertions.assertFalse(UserService.userInWorkingGroup("user",
+                "working_group1"));
+        Assertions.assertTrue(UserService.userInWorkingGroup("user",
+                "working_group2"));
+    }
+
+    @Test
+    public void testMultipleUsersWorkingGroups() {
         UserService.register("Lena", "qwerty");
         UserService.addWorkingGroup("Lena", "working_group1");
         UserService.addWorkingGroup("Lena", "working_group3");
@@ -84,35 +125,51 @@ public class UserServiceTests {
         UserService.register("Tankov", "qwerty");
         UserService.addWorkingGroup("Tankov", "working_group1");
 
-        List<String> expectedUsersInGroup = new ArrayList<>(Arrays.asList("Lena", "Liza", "Vlad", "Tankov"));
+        List<String> expectedUsersInGroup = new ArrayList<>(Arrays.asList("Lena", "Liza", "Vlad",
+                "Tankov"));
         List<String> actualUsersInGroup = UserService.getUsersFromWorkingGroup("working_group1");
         Assertions.assertEquals(expectedUsersInGroup.size(), actualUsersInGroup.size());
         Assertions.assertTrue(expectedUsersInGroup.containsAll(actualUsersInGroup));
         Assertions.assertTrue(actualUsersInGroup.containsAll(expectedUsersInGroup));
-
-        List<String> actualUsersInGroupEmpty = UserService.getUsersFromWorkingGroup("working_group2");
-        Assertions.assertEquals(0, actualUsersInGroupEmpty.size());
-
-        List<String> actualUsersInGroupSingle = UserService.getUsersFromWorkingGroup("working_group3");
-        Assertions.assertEquals(1, actualUsersInGroupSingle.size());
-        Assertions.assertTrue(actualUsersInGroup.contains("Lena"));
     }
 
     @Test
-    public void testGetWorkingGroups() {
+    public void testSingleUserInWorkingGroup() {
+        UserService.register("Lena", "qwerty");
+        UserService.addWorkingGroup("Lena", "working_group3");
+        List<String> actualUsersInGroupSin = UserService.getUsersFromWorkingGroup("working_group3");
+        Assertions.assertEquals(1, actualUsersInGroupSin.size());
+        Assertions.assertTrue(actualUsersInGroupSin.contains("Lena"));
+    }
+
+    @Test
+    public void testNoUsersInNonExistentWorkingGroup() {
+        List<String> actualUsersInGroupEmp = UserService.getUsersFromWorkingGroup("working_group2");
+        Assertions.assertEquals(0, actualUsersInGroupEmp.size());
+    }
+
+    @Test
+    public void testGetWorkingGroupsNonExistentUserThrowsException() {
         Assertions.assertThrows(IllegalArgumentException.class,
                 () -> UserService.getWorkingGroups("non-existent-user"),
                 "Expected illegal argument exception but it was not thrown");
+    }
 
+    @Test
+    public void testGetWorkingGroupsEmptyResult() {
         UserService.register("Zhenya", "qwerty");
         List<String> workingGroups = UserService.getWorkingGroups("Zhenya");
         Assertions.assertEquals(0, workingGroups.size());
+    }
 
+    @Test
+    public void testGetWorkingGroupsMultipleGroups() {
+        UserService.register("Zhenya", "qwerty");
         UserService.addWorkingGroup("Zhenya", "working_group1");
         UserService.addWorkingGroup("Zhenya", "working_group2");
         UserService.addWorkingGroup("Zhenya", "working_group3");
 
-        workingGroups = UserService.getWorkingGroups("Zhenya");
+        List<String> workingGroups = UserService.getWorkingGroups("Zhenya");
         Assertions.assertEquals(3, workingGroups.size());
         Assertions.assertTrue(workingGroups.contains("working_group1"));
         Assertions.assertTrue(workingGroups.contains("working_group2"));
@@ -120,30 +177,67 @@ public class UserServiceTests {
     }
 
     @Test
-    public void testChangeUserPassword() {
+    public void testChangeUserPasswordNonExistentUserThrowsException() {
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> UserService.changePassword("non-existent-user", "lallala", "se"),
-                "Expected illegal argument exception but it was not thrown");
+                () -> UserService.changePassword(
+                        "non-existent-user", "lallala", "se"
+                ), "Expected illegal argument exception but it was not thrown");
+    }
+
+    @Test
+    public void testChangeUserPasswordWrongCredentials() {
         UserService.register("user1", "password");
-        Assertions.assertFalse(UserService.changePassword("user1", "pass", "new_password"));
-        Assertions.assertFalse(UserService.changePassword("user1", "password", "password"));
-        Assertions.assertTrue(UserService.changePassword("user1", "password", "new_password"));
+        Assertions.assertFalse(UserService.changePassword("user1", "pass",
+                "new_password"));
+    }
+
+    @Test
+    public void testChangeUserPasswordToSamePassword() {
+        UserService.register("user1", "password");
+        Assertions.assertFalse(UserService.changePassword("user1", "password",
+                "password"));
+    }
+
+    @Test
+    public void testChangeUserPasswordOk() {
+        UserService.register("user1", "password");
+        Assertions.assertTrue(UserService.changePassword("user1", "password",
+                "new_password"));
         Assertions.assertFalse(UserService.authenticate("user1", "password"));
         Assertions.assertTrue(UserService.authenticate("user1", "new_password"));
     }
 
     @Test
-    public void testChangeUserLogin() {
+    public void testChangeUserLoginNonExistentUserThrowsException() {
         Assertions.assertThrows(IllegalArgumentException.class,
-                () -> UserService.changeLogin("non-existent-user", "password", "new_login"),
+                () -> UserService.changeLogin("non-existent-user", "password",
+                        "new_login"),
                 "Expected illegal argument exception but it was not thrown");
+    }
+
+    @Test
+    public void testChangeUserLoginWrongCredentials() {
         UserService.register("user1", "password");
-        Assertions.assertFalse(UserService.changeLogin("user1", "password", "user1"));
-        Assertions.assertFalse(UserService.changeLogin("user1", "pass", "user2"));
-        Assertions.assertTrue(UserService.changeLogin("user1", "password", "user2"));
+        Assertions.assertFalse(UserService.changeLogin("user1", "pass",
+                "user2"));
+    }
+
+    @Test
+    public void testChangeUserLoginToSameLogin() {
+        UserService.register("user1", "password");
+        Assertions.assertFalse(UserService.changeLogin("user1", "password",
+                "user1"));
+    }
+
+    @Test
+    public void testChangeUserLoginOk() {
+        UserService.register("user1", "password");
+        Assertions.assertTrue(UserService.changeLogin("user1", "password",
+                "user2"));
         Assertions.assertFalse(UserService.authenticate("user1", "password"));
         Assertions.assertTrue(UserService.authenticate("user2", "password"));
         UserService.register("user3", "qwerty");
-        Assertions.assertFalse(UserService.changeLogin("user3", "qwerty", "user2"));
+        Assertions.assertFalse(UserService.changeLogin("user3", "qwerty",
+                "user2"));
     }
 }
