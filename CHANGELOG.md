@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Release 1.0]
+## [Release 1.0] - 2021-11-05
 
 ### Added
 
@@ -17,7 +17,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Logs can be queried for projects 
 - People can be added to working groups that correspond to projects
 
-## [Release 1.1]
+## [Release 1.1] - 2021-11-05
 
 ### Added
 
