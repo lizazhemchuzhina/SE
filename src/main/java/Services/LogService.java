@@ -58,9 +58,9 @@ public class LogService {
 
     public List<Integer> getLogsByLevel(int level) {
         List<Integer> logsId = new ArrayList<>();
-        for (Map.Entry<Integer, Log> map : logs.entrySet()) {
-            if (map.getValue().getLevel() == level) {
-                logsId.add(map.getKey());
+        for (Map.Entry<Integer, Log> entry : logs.entrySet()) {
+            if (entry.getValue().getLevel() == level) {
+                logsId.add(entry.getKey());
             }
         }
         return logsId;
