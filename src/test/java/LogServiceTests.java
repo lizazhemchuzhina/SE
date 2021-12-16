@@ -36,8 +36,8 @@ public class LogServiceTests {
         Assertions.assertEquals(0, logService.getLogLevel(logId));
         Assertions.assertFalse(logService.changeLogLevel(logId, 123));
         Assertions.assertTrue(logService.changeLogLevel(logId, 3));
-        Log log2 = new Log("ERROR: all fell and Zhenya is a cow");
-        Log log3 = new Log("ERROR: all fell and we are not happy");
+        Log log2 = new Log("ERROR: all fell");
+        Log log3 = new Log("ERROR: all fell");
 
         List<Integer> logsId = new ArrayList<>(Arrays.asList(0, logService.add(log2),
                 logService.add(log3)));
@@ -51,9 +51,9 @@ public class LogServiceTests {
         Log log = new Log("ERROR: all fell");
         int logId = logService.add(log);
 
-        Log log1 = new Log("ERROR: all fell and Liza is a cow bigger then Zhenya");
-        Log log2 = new Log("ERROR: all fell and Zhenya is a cow");
-        Log log3 = new Log("ERROR: all fell and we are not happy");
+        Log log1 = new Log("ERROR: all fell");
+        Log log2 = new Log("ERROR: something broke");
+        Log log3 = new Log("ERROR: something does not seem right");
         List<Integer> logsId = new ArrayList<>(Arrays.asList(logService.add(log1),
                 logService.add(log2), logService.add(log3)));
         logService.changeLogLevel(logsId, 2);
@@ -72,18 +72,18 @@ public class LogServiceTests {
     @Test
     public void testGetLogsByLabel() {
 
-        Log log1 = new Log("ERROR: all fell and Liza is a cow bigger then Zhenya");
-        Log log2 = new Log("ERROR: all fell and Zhenya is a cow");
-        Log log3 = new Log("ERROR: all fell and we are not happy");
+        Log log1 = new Log("ERROR: all fell");
+        Log log2 = new Log("ERROR: something broke");
+        Log log3 = new Log("ERROR: something does not seem right");
         List<Integer> expectedLogsIdErr = new ArrayList<>(Arrays.asList(logService.add(log1),
                 logService.add(log2), logService.add(log3)));
         List<Integer> logsIdErr = logService.getLogsByLabel(Labels.ERROR);
         Assertions.assertEquals(expectedLogsIdErr.size(), logsIdErr.size());
         Assertions.assertTrue(expectedLogsIdErr.containsAll(logsIdErr));
 
-        Log log4 = new Log("INFO: all fell and Liza is a cow bigger then Zhenya");
-        Log log5 = new Log("WARNING: all fell and Zhenya is a cow");
-        Log log6 = new Log("WARNING: all fell and we are not happy");
+        Log log4 = new Log("INFO: all fell");
+        Log log5 = new Log("WARNING: something broke");
+        Log log6 = new Log("WARNING: all fell and something does not seem right");
 
         List<Integer> expectedLogsIdInfo = new ArrayList<>(List.of(logService.add(log4)));
         List<Integer> logsIdInfo = logService.getLogsByLabel(Labels.INFO);
