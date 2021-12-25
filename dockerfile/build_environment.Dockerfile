@@ -1,8 +1,14 @@
-FROM gradle:7.1.0-jdk11 AS image
+FROM openjdk:11-slim as image
 MAINTAINER Elizaveta Zhemchuzhina, Elena Sunko, Evgeniia Kirillova
 WORKDIR /home/gradle/src
-COPY . .
-RUN gradle build
+
+ADD ./gradlew ./build.gradle ./settings.gradle ./
+ADD ./gradle ./gradle
+
+ADD ./src ./src
+ADD ./config ./config
+
+RUN ./gradlew assemble
 
 FROM openjdk:11-jre-slim
 COPY --from=image /home/gradle/src/build/libs/*.jar logs_lib/lib.jar
