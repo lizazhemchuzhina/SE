@@ -71,8 +71,14 @@ where label is either ERROR, WARNING, INFO, TRACEBACK and level means the import
 
 Labels are set automatically when log is created:
 ```bash
-Log myLog = new Log("ERROR: SOMETHING BROKE");
+Log myLog = new Log("ERROR: SOMETHING BROKE", new Date());
 Assert.assertEquals(myLog.getLabel(), Labels.ERROR);
+```
+Additionally information about date is stored:
+```bash
+Date date = new Date();
+Log myLog = new Log("ERROR: SOMETHING BROKE", date);
+Assert.assertEquals(myLog.getDate(), date);
 ```
 
 5. User
@@ -121,7 +127,9 @@ boolean ok = UserService.authenticate("login", "password");
 Group userGroup = UserService.authorize("login");
 boolean removed = UserService.removeFromWorkingGroup("login", "group");
 ```
+10. Roles
 
+Since release 1.1 the following user roles are available: TEAMLEAD, BOD (BUG ON DUTY), CC, NONE
 
 ## Authors
 - Evgenya Kirillova (Кириллова Евгения)
